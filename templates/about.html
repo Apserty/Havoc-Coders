@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Jumping Textures -->
+    <div class="texture-overlay"></div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Header -->
+    <header>
+        <!-- EarnKart Logo -->
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div>EarnKart</div>
+        </a>
+        
+        <!-- Page Navigation Buttons -->
+        <div class="page-nav">
+            <a href="/" class="nav-btn" data-page="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="/jobs/" class="nav-btn" data-page="jobs">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+            <a href="/#inbox" class="nav-btn" data-page="inbox">
+                <i class="fas fa-inbox"></i> Inbox
+            </a>
+            <a href="/post-job/" class="nav-btn" data-page="post">
+                <i class="fas fa-plus-circle"></i> Post Job
+            </a>
+            <a href="/about/" class="nav-btn active" data-page="about">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+        </div>
+        
+        <!-- User Actions - Login/Signup -->
+        <div class="user-actions">
+            <div class="auth-buttons" id="authButtons">
+                <a href="/login/" class="auth-btn login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="/signup/" class="auth-btn signup-btn">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            </div>
+            
+            <a href="/profile/" class="user-profile" id="userProfile" style="display: none;">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div class="user-name" id="userName">Aswath</div>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="about-container">
+            <h1 class="section-title">
+                <i class="fas fa-info-circle"></i> About EarnKart
+            </h1>
+            
+            <div class="about-section">
+                <h2><i class="fas fa-rocket"></i> Our Mission</h2>
+                <p>EarnKart is on a mission to democratize access to employment opportunities by connecting local workers with immediate job opportunities. We believe everyone deserves a fair chance to earn a livelihood with dignity.</p>
+                <p>Founded in 2025, EarnKart has helped thousands of workers find temporary and permanent jobs while assisting employers in finding reliable help for their needs.</p>
+            </div>
+            
+            <div class="about-section">
+                <h2><i class="fas fa-eye"></i> Our Vision</h2>
+                <p>We envision a world where no one is unemployed due to lack of access to job opportunities. Through technology, we aim to bridge the gap between job seekers and providers in local communities.</p>
+                <p>Our platform is designed specifically for rural and semi-urban areas where traditional job portals often fail to reach.</p>
+            </div>
+            
+            <div class="about-section">
+                <h2><i class="fas fa-handshake"></i> How It Works</h2>
+                <p><strong>For Job Seekers:</strong> Browse available gigs in your area, apply with one click, and start earning immediately. No complicated resumes needed. EarnKart verifies all job postings to ensure safety and reliability.</p>
+                <p><strong>For Employers:</strong> Post your job requirements, connect with verified local workers, and get your work done efficiently. Our platform makes hiring simple, quick, and cost-effective.</p>
+            </div>
+            
+            <div class="about-section">
+                <h2><i class="fas fa-shield-alt"></i> Safety & Trust</h2>
+                <p>At EarnKart, we prioritize the safety and security of both job seekers and employers. Our platform includes:</p>
+                <ul style="color: var(--gray); line-height: 1.7; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                    <li>User verification through phone and ID checks</li>
+                    <li>Secure messaging system for communication</li>
+                    <li>Rating and review system for accountability</li>
+                    <li>24/7 customer support for any issues</li>
+                    <li>Clear guidelines for fair pay and working conditions</li>
+                </ul>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Quick Connections</h3>
+                    <p>Connect with workers or jobs in minutes, not days. Immediate hiring for urgent needs.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Verified Users</h3>
+                    <p>All users are verified through phone and ID checks. Your safety is our priority.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3>Fair Pay</h3>
+                    <p>Transparent pricing and fair wages for all work. No hidden charges or commissions.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Direct Communication</h3>
+                    <p>Chat directly with employers or workers. Clear communication for better results.</p>
+                </div>
+            </div>
+            <br>
+            
+            <div class="about-section">
+                <h2><i class="fas fa-chart-line"></i> Our Impact</h2>
+                <p>Since our launch, EarnKart has:</p>
+                <div class="impact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="impact-card" style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div id="impact-jobs" class="impact-number" data-value="0" aria-label="Jobs posted">0+</div>
+                        <div style="color: var(--gray);">Jobs Posted</div>
+                    </div>
+
+                    <div class="impact-card" style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div id="impact-workers" class="impact-number" data-value="0" aria-label="Workers registered">0+</div>
+                        <div style="color: var(--gray);">Workers Registered</div>
+                    </div>
+
+                    <div class="impact-card" style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div id="impact-earned" class="impact-number" data-value="0" data-format="currency_short" aria-label="Amount earned by workers">₹0+</div>
+                        <div style="color: var(--gray);">Earned by Workers</div>
+                    </div>
+
+                    <div class="impact-card" style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div id="impact-cities" class="impact-number" data-value="0" aria-label="Cities served">0+</div>
+                        <div style="color: var(--gray);">Cities Served</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="/jobs/" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    <i class="fas fa-briefcase"></i> Browse Jobs
+                </a>
+                <br>
+                <a href="/post-job/" class="btn btn-secondary" style="font-size: 1.1rem; padding: 1rem 2rem; margin-left: 1rem;">
+                    <i class="fas fa-plus"></i> Post a Job
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div>EarnKart</div>
+                </div>
+                <p class="footer-description">
+                    Empowering local communities through accessible employment opportunities. Find work or hire help with just a few clicks.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/jobs/">Browse Jobs</a></li>
+                    <li><a href="/post-job/">Post a Job</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/help/">Help Center</a></li>
+                    <li><a href="/safety/">Safety Guidelines</a></li>
+                    <li><a href="/contact/">Contact Support</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© <span id="currentYear">2025</span> EarnKart. Connecting workers with opportunities.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <div class="texture-overlay"></div>
+    <div class="mouse-follower"></div>
+
+    <header>
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div>EarnKart</div>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div class="form-container" style="max-width: 500px;">
+            <h2 class="form-title">Join EarnKart</h2>
+
+            <!-- ✅ Optional: show Django messages -->
+            {% if messages %}
+            <div style="margin: 1rem 0;">
+                {% for message in messages %}
+                <div style="padding: 10px; border-radius: 10px; background: #ffe8e8; color: #b00020;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- ✅ Django signup form -->
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-name">Full Name</label>
+                    <input type="text"
+                           id="signup-name"
+                           name="name"
+                           class="form-input"
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-email">Email Address</label>
+                    <input type="email"
+                           id="signup-email"
+                           name="email"
+                           class="form-input"
+                           placeholder="Enter your email"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-phone">Phone Number</label>
+                    <input type="tel"
+                           id="signup-phone"
+                           name="phone"
+                           class="form-input"
+                           placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-password">Password</label>
+                    <input type="password"
+                           id="signup-password"
+                           name="password"
+                           class="form-input"
+                           placeholder="Create a password"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-confirm">Confirm Password</label>
+                    <input type="password"
+                           id="signup-confirm"
+                           name="confirm_password"
+                           class="form-input"
+                           placeholder="Confirm your password"
+                           required>
+                </div>
+
+                <div class="form-group" style="margin-top: 0.5rem; display:flex; align-items:flex-start; gap:10px;">
+                    <input type="checkbox" id="acceptTermsChk" name="accept_terms" required aria-describedby="terms-desc" />
+                    <label for="acceptTermsChk" id="terms-desc" style="color:var(--gray); font-size:0.95rem;">
+                        I agree to the
+                        <a href="/terms/" target="_blank" rel="noopener" style="color:var(--primary); text-decoration:none;">
+                            Terms of Service
+                        </a>
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" type="submit">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <p style="color: var(--gray);">
+                    Already have an account?
+                    <a href="/login/" style="color: var(--primary); text-decoration: none;">Login here</a>
+                </p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <div class="texture-overlay"></div>
+    <div class="mouse-follower"></div>
+
+    <header>
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div>EarnKart</div>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div class="form-container" style="max-width: 510px;">
+            <h2 class="form-title">Login to EarnKart</h2>
+
+            <!-- ✅ Django login form -->
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email Address</label>
+                    <input type="email"
+                           id="login-email"
+                           name="email"
+                           class="form-input"
+                           placeholder="Enter your email"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input type="password"
+                           id="login-password"
+                           name="password"
+                           class="form-input"
+                           placeholder="Enter your password"
+                           required>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" type="submit">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.6rem;">
+                <p style="color: var(--gray);">
+                    Don't have an account?
+                    <a href="/signup/" style="color: var(--primary); text-decoration: none;">Sign up here</a>
+                </p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

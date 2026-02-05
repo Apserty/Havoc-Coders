@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Jumping Textures -->
+    <div class="texture-overlay"></div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Header -->
+    <header>
+        <!-- EarnKart Logo -->
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div>EarnKart</div>
+        </a>
+        
+        <!-- Page Navigation Buttons -->
+        <div class="page-nav">
+            <a href="/" class="nav-btn" data-page="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="/jobs/" class="nav-btn" data-page="jobs">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+            <a href="/profile/" class="nav-btn active" data-page="profile">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <a href="/post-job/" class="nav-btn" data-page="post">
+                <i class="fas fa-plus-circle"></i> Post Job
+            </a>
+            <a href="/about/" class="nav-btn" data-page="about">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+        </div>
+        
+        <!-- User Actions - Login/Signup -->
+        <div class="user-actions">
+            <div class="auth-buttons" id="authButtons">
+                <a href="/login/" class="auth-btn login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="/signup/" class="auth-btn signup-btn">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            </div>
+            
+            <a href="/profile/" class="user-profile" id="userProfile" style="display: none;">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <div class="user-name" id="userName">Aswath</div>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="profile-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-circle"></i> Your Profile
+            </h2>
+            
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-pic">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="profile-name">Aswath</h3>
+                    <div class="profile-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(5.0 rating)</span>
+                    </div>
+                    <p class="profile-bio">Dedicated service provider, always delivering with quality and commitment.</p>
+                    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Gigs Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Jobs Posted</div>
+                        </div>
+                    </div>
+                    
+                    <div class="verified-badges">
+                        <div class="detail" style="margin-top: 1rem;">
+                            <i class="fas fa-id-card" style="color: var(--primary);"></i>
+                            <span>ID Verified</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-phone" style="color: var(--primary);"></i>
+                            <span>Phone Verified</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-envelope" style="color: var(--primary);"></i>
+                            <span>Email Verified</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-details">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--dark);">Personal Information</h3>
+                    
+                    <div class="job-details">
+                        <div class="detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>aswatharu2407@gmail.com</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-phone"></i>
+                            <span>9840471746</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>19 years</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chennai</span>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Member since March 2022</span>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin: 2rem 0 1rem; color: var(--dark);">Skills</h3>
+                    <div class="skills-container">
+                        <div class="skill-tag">Carpentry</div>
+                        <div class="skill-tag">Household Works</div>
+                        <div class="skill-tag">Gardening</div>
+                        <div class="skill-tag">Farming</div>
+                        <div class="skill-tag">Manual Labor</div>
+                        <div class="skill-tag">Painting</div>
+                        <div class="skill-tag">Plumbing Basics</div>
+                    </div>
+                    
+                    <h3 style="margin: 2rem 0 1rem; color: var(--dark);">Recent Activity</h3>
+                    <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div class="detail">
+                            <i class="fas fa-clock" style="color: var(--secondary);"></i>
+                            <span>Applied for "Harvesting Helper" - 2 days ago</span>
+                        </div>
+                        <div class="detail" style="margin-top: 1rem;">
+                            <i class="fas fa-clock" style="color: var(--secondary);"></i>
+                            <span>Posted "Full Stack Developer" job - 5 days ago</span>
+                        </div>
+                        <div class="detail" style="margin-top: 1rem;">
+                            <i class="fas fa-clock" style="color: var(--secondary);"></i>
+                            <span>Updated profile information - 1 week ago</span>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin: 2rem 0 1rem; color: var(--dark);">My Posted Jobs</h3>
+                    <div class="jobs-grid" style="grid-template-columns: 1fr;">
+                        <div class="job-card">
+                            <h3 class="job-title">Full Stack Developer</h3>
+                            <div class="job-employer">
+                                <span>Posted by You</span>
+                                <div class="rating">
+                                    <i class="fas fa-eye"></i>
+                                    <span>45 views</span>
+                                </div>
+                            </div>
+                            
+                            <p class="job-description">I have got my college project to be done by 31st Jan. Need help with full stack development.</p>
+                            
+                            <div class="job-details">
+                                <div class="detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Chennai</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Until Jan 31</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-users"></i>
+                                    <span>3 applications</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2.5rem; display: flex; gap: 1rem;">
+                        <button class="btn btn-primary" id="editProfileBtn">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                        <button class="btn btn-secondary" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div>EarnKart</div>
+                </div>
+                <p class="footer-description">
+                    Empowering local communities through accessible employment opportunities. Find work or hire help with just a few clicks.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/jobs/">Browse Jobs</a></li>
+                    <li><a href="/post-job/">Post a Job</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/help/">Help Center</a></li>
+                    <li><a href="/safety/">Safety Guidelines</a></li>
+                    <li><a href="/contact/">Contact Support</a></li>
+                    <li><a href="/faq/">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© <span id="currentYear">2025</span> EarnKart. Connecting workers with opportunities.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        // Profile-specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logoutBtn');
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('earnkart_user');
+                    alert('Logged out successfully');
+                    window.location.href = 'index.html';
+                });
+            }
+            
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', () => {
+                    alert('Edit profile feature would open here');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

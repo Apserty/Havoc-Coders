@@ -1,0 +1,483 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Guidelines - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* Safety Guidelines Specific Styles */
+        .safety-hero {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .safety-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .safety-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid #ff9800;
+            transition: var(--transition);
+        }
+        
+        .safety-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .safety-card.important {
+            border-left-color: #f44336;
+            background: #fff5f5;
+        }
+        
+        .safety-card.success {
+            border-left-color: #4CAF50;
+            background: #f5fff5;
+        }
+        
+        .safety-icon {
+            width: 60px;
+            height: 60px;
+            background: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .safety-card.important .safety-icon {
+            background: #f44336;
+        }
+        
+        .safety-card.success .safety-icon {
+            background: #4CAF50;
+        }
+        
+        .safety-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tip-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        
+        .tip-number {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .emergency-section {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .emergency-btn {
+            background: white;
+            color: #f44336;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .emergency-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .reporting-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .resource-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .resource-link {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .resource-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .safety-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .safety-tips {
+                grid-template-columns: 1fr;
+            }
+            
+            .reporting-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Header -->
+        <header>
+            <!-- EarnKart Logo -->
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div>EarnKart</div>
+            </a>
+            
+            <!-- Navigation Menu -->
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/jobs/" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+                <a href="/profile/" class="nav-link">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+                <a href="/help/" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Help
+                </a>
+                <a href="/safety/" class="nav-link active">
+                    <i class="fas fa-shield-alt"></i> Safety
+                </a>
+            </nav>
+            
+            <!-- User Actions -->
+            <div class="user-actions">
+                <div class="auth-buttons" id="authButtons">
+                    <a href="/login/" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/signup/" class="auth-btn signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-name" id="userName">Aswath</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="safety-hero">
+                <h1><i class="fas fa-shield-alt"></i> Safety First</h1>
+                <p>Your safety is our top priority. Follow these guidelines to ensure a secure experience on EarnKart</p>
+            </section>
+            
+            <!-- Important Safety Card -->
+            <div class="safety-card important">
+                <div class="safety-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2>IMPORTANT: Emergency Contacts</h2>
+                <p>If you feel unsafe or encounter an emergency situation:</p>
+                <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                    <li><strong>Police:</strong> 100</li>
+                    <li><strong>Women's Helpline:</strong> 1091</li>
+                    <li><strong>EarnKart Emergency:</strong> +91 1800-123-4567</li>
+                    <li><strong>Local Emergency Services:</strong> 112</li>
+                </ul>
+                <p>Always trust your instincts. If something feels wrong, remove yourself from the situation immediately.</p>
+            </div>
+            
+            <!-- Safety Tips -->
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i> Safety Tips for Everyone
+            </h2>
+            
+            <div class="safety-tips">
+                <div class="tip-item">
+                    <div class="tip-number">1</div>
+                    <div>
+                        <h4>Verify Profiles</h4>
+                        <p>Always check user ratings and verification badges before accepting work or hiring.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-number">2</div>
+                    <div>
+                        <h4>Meet in Public</h4>
+                        <p>For first meetings, choose public places like cafes or community centers.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-number">3</div>
+                    <div>
+                        <h4>Inform Someone</h4>
+                        <p>Always let a friend or family member know where you're going and who you're meeting.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-number">4</div>
+                    <div>
+                        <h4>Use In-App Communication</h4>
+                        <p>Keep all communication within the EarnKart app for your safety and records.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-number">5</div>
+                    <div>
+                        <h4>Check Work Environment</h4>
+                        <p>Before starting work, ensure the environment is safe and appropriate for the job.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-number">6</div>
+                    <div>
+                        <h4>Trust Your Instincts</h4>
+                        <p>If something feels wrong or too good to be true, it probably is. Report suspicious activity.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- For Workers -->
+            <div class="safety-card">
+                <div class="safety-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h2>Safety Guidelines for Workers</h2>
+                <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                    <li><strong>Research Employers:</strong> Check employer ratings and reviews before accepting jobs</li>
+                    <li><strong>Clarify Job Details:</strong> Get clear information about work hours, location, and requirements</li>
+                    <li><strong>Discuss Payment:</strong> Agree on payment terms and method before starting work</li>
+                    <li><strong>Bring Essentials:</strong> Carry water, snacks, and necessary safety equipment</li>
+                    <li><strong>Document Work:</strong> Take photos of completed work for your records</li>
+                    <li><strong>Report Issues:</strong> Immediately report any unsafe conditions or inappropriate behavior</li>
+                </ul>
+            </div>
+            
+            <!-- For Employers -->
+            <div class="safety-card success">
+                <div class="safety-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2>Safety Guidelines for Employers</h2>
+                <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                    <li><strong>Verify Workers:</strong> Check worker profiles, ratings, and verification status</li>
+                    <li><strong>Provide Clear Instructions:</strong> Give detailed job descriptions and safety guidelines</li>
+                    <li><strong>Ensure Safe Workspace:</strong> Maintain a safe working environment with necessary equipment</li>
+                    <li><strong>Respect Boundaries:</strong> Maintain professional behavior and respect personal space</li>
+                    <li><strong>Timely Payments:</strong> Pay workers promptly as agreed</li>
+                    <li><strong>Provide Breaks:</strong> Ensure workers get adequate breaks and access to water</li>
+                </ul>
+            </div>
+            
+            
+            
+           
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>EarnKart</div>
+                    </div>
+                    <p class="footer-description">
+                        Building a safer community for local employment opportunities.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Safety Resources</h3>
+                    <ul>
+                        <li><a href="/safety/">Safety Guidelines</a></li>
+                        <li><a href="/help/">Help Center</a></li>
+                        <li><a href="/contact/">Emergency Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/jobs/">Find Jobs</a></li>
+                        <li><a href="/post-job/">Post a Job</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 EarnKart. Your safety is our priority. Emergency: +91 1800-123-4567</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Emergency button functionality — use tel: on mobile; on desktop show confirmation and open contact page as fallback
+        (function() {
+            const btn = document.getElementById('emergencyBtn');
+            const fallback = 'contact-support.html';
+            // If the element is an anchor with tel: href, mobile/phone-capable devices will handle the call automatically.
+            btn.addEventListener('click', function(event) {
+                const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (isMobile) {
+                    // allow default tel: behavior
+                    return;
+                }
+                // Desktop fallback: confirm then navigate to contact page (do not simulate call with alerts)
+                event.preventDefault();
+                const proceed = confirm('This will open EarnKart support. For immediate danger call local emergency services first. Continue?');
+                if (proceed) window.location.href = fallback;
+            });
+        })();
+        
+        // Add mouse effects
+        document.addEventListener('mousemove', (e) => {
+            const follower = document.querySelector('.mouse-follower');
+            if (follower) {
+                follower.style.left = `${e.clientX - 15}px`;
+                follower.style.top = `${e.clientY - 15}px`;
+            }
+        });
+        
+        // Floating shapes animation
+        function animateFloatingShapes() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                shape.style.left = `${Math.random() * 80 + 5}%`;
+                shape.style.top = `${Math.random() * 80 + 5}%`;
+                const duration = 20 + Math.random() * 20;
+                shape.style.animationDuration = `${duration}s`;
+                if (Math.random() > 0.5) {
+                    shape.style.animationDirection = 'reverse';
+                }
+            });
+        }
+        
+        animateFloatingShapes();
+        
+        // Safety tip hover effects
+        document.querySelectorAll('.tip-item').forEach(tip => {
+            tip.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            });
+            
+            tip.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
+            });
+        });
+    </script>
+</body>
+</html>

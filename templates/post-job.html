@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Jumping Textures -->
+    <div class="texture-overlay"></div>
+
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+
+    <!-- Header -->
+    <header>
+        <!-- EarnKart Logo -->
+        <a href="/" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div>EarnKart</div>
+        </a>
+
+        <!-- Page Navigation Buttons -->
+        <div class="page-nav">
+            <a href="/" class="nav-btn" data-page="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="/jobs/" class="nav-btn" data-page="jobs">
+                <i class="fas fa-briefcase"></i> Jobs
+            </a>
+            <a href="/inbox/" class="nav-btn" data-page="inbox">
+                <i class="fas fa-inbox"></i> Inbox
+            </a>
+            <a href="/post-job/" class="nav-btn active" data-page="post">
+                <i class="fas fa-plus-circle"></i> Post Job
+            </a>
+            <a href="/about/" class="nav-btn" data-page="about">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+        </div>
+
+        <!-- User Actions -->
+        <div class="user-actions">
+            {% if user.is_authenticated %}
+                <a href="/profile/" class="user-profile" id="userProfile">
+                    <div class="user-avatar" id="userAvatar">{{ user.first_name|default:user.username|slice:":1"|upper }}</div>
+                    <div class="user-name" id="userName">{{ user.first_name|default:user.username }}</div>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            {% else %}
+                <div class="auth-buttons" id="authButtons">
+                    <a href="/login/" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/signup/" class="auth-btn signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="form-container">
+            <h2 class="form-title">Post a Job</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;">
+                Fill in the details to post your job opportunity
+            </p>
+
+            <!-- ✅ Optional: show Django messages -->
+            {% if messages %}
+            <div style="margin: 0 0 1rem 0;">
+                {% for message in messages %}
+                <div style="padding: 10px; border-radius: 10px; background: #ffe8e8; color: #b00020;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- ✅ Django POST form -->
+            <form method="POST" action="{% url 'post_job' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label class="form-label" for="job-title">Job Title *</label>
+                    <input type="text" id="job-title" name="title" class="form-input"
+                           placeholder="e.g. Harvesting helper" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="employer-name">Your Name/Organization *</label>
+                    <input type="text" id="employer-name" name="employer_name" class="form-input"
+                           placeholder="Your name or organization" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="location">Location *</label>
+                    <input type="text" id="location" name="location" class="form-input"
+                           placeholder="Village / Town / District" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="pay">Pay Offered *</label>
+                        <input type="text" id="pay" name="pay" class="form-input"
+                               placeholder="e.g. ₹200/day or ₹5000 total" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="duration">Duration</label>
+                        <input type="text" id="duration" name="duration" class="form-input"
+                               placeholder="e.g. 5 days or Ongoing">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="workers-needed">Workers Needed *</label>
+                        <input type="number" id="workers-needed" name="workers_needed" class="form-input"
+                               placeholder="e.g. 3" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="job-type">Job Type</label>
+                        <select id="job-type" name="job_type" class="form-input">
+                            <option value="">Select job type</option>
+                            <option value="full-time">Full Time</option>
+                            <option value="part-time">Part Time</option>
+                            <option value="contract">Contract</option>
+                            <option value="temporary">Temporary</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="skills">Skills Required</label>
+                    <input type="text" id="skills" name="skills" class="form-input"
+                           placeholder="e.g. Carpentry, Driving, None required">
+                    <small style="color: var(--gray);">Separate multiple skills with commas</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="schedule">Work Schedule</label>
+                    <input type="text" id="schedule" name="schedule" class="form-input"
+                           placeholder="e.g. 9 AM - 5 PM, Monday to Friday">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">Job Description *</label>
+                    <textarea id="description" name="description" class="form-input" rows="5"
+                              placeholder="Describe the job details, responsibilities, and requirements..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="contact-info">Contact Information</label>
+                    <input type="text" id="contact-info" name="contact_info" class="form-input"
+                           placeholder="Phone number or email for applicants">
+                    <small style="color: var(--gray);">This will be visible to applicants</small>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2.5rem;">
+                    <button class="btn btn-primary" style="flex: 1;" type="submit">
+                        <i class="fas fa-check-circle"></i> Post Job
+                    </button>
+                    <a href="/jobs/" class="btn btn-secondary" style="flex: 1; text-align: center;">
+                        <i class="fas fa-times-circle"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div>EarnKart</div>
+                </div>
+                <p class="footer-description">
+                    Empowering local communities through accessible employment opportunities. Find work or hire help with just a few clicks.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/jobs/">Browse Jobs</a></li>
+                    <li><a href="/post-job/">Post a Job</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="/help/">Help Center</a></li>
+                    <li><a href="/safety/">Safety Guidelines</a></li>
+                    <li><a href="/contact/">Contact Support</a></li>
+                    <li><a href="/faq/">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© <span id="currentYear">2025</span> EarnKart. Connecting workers with opportunities.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

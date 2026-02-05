@@ -1,0 +1,526 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* Help Center Specific Styles */
+        .help-hero {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .help-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            padding-right: 60px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+        
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .quick-link {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .quick-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .help-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .faq-section {
+                padding: 2rem;
+            }
+            
+            .help-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Header -->
+        <header>
+            <!-- EarnKart Logo -->
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div>EarnKart</div>
+            </a>
+            
+            <!-- Navigation Menu -->
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                
+            </nav>
+            
+            <!-- User Actions -->
+            <div class="user-actions">
+                <div class="auth-buttons" id="authButtons">
+                    <a href="/login/" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/signup/" class="auth-btn signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-name" id="userName">Aswath</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="help-hero">
+                <h1>How can we help you?</h1>
+                <p>Find answers to common questions and get support for your EarnKart experience</p>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search for help articles..." id="helpSearch">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <a href="#getting-started" class="quick-link">Getting Started</a>
+                <a href="#account" class="quick-link">Account & Profile</a>
+                <a href="#jobs" class="quick-link">Jobs & Applications</a>
+                <a href="#payments" class="quick-link">Payments</a>
+                <a href="#safety" class="quick-link">Safety</a>
+                <a href="#contact" class="quick-link">Contact Support</a>
+            </div>
+            
+            <!-- Help Categories -->
+            <div class="help-categories">
+                <div class="category-card" onclick="window.location.href='#getting-started'">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Getting Started</h3>
+                    <p>Learn how to create your account and start using EarnKart</p>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='safety-guidelines.html'">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety Guidelines</h3>
+                    <p>Important safety tips for workers and employers</p>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='contact-support.html'">
+                    <div class="category-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Contact Support</h3>
+                    <p>Get in touch with our support team</p>
+                </div>
+                
+                <div class="category-card" onclick="window.location.href='faq.html'">
+                    <div class="category-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Frequently asked questions and answers</p>
+                </div>
+            </div>
+            
+            <!-- Popular FAQs -->
+            <section class="faq-section" id="popular-faqs">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i> Popular Questions
+                </h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How do I create an account on EarnKart?
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            Creating an account is simple! Click on the "Sign Up" button in the top right corner, fill in your details (name, email, phone number), and verify your phone number. Once verified, you can start browsing jobs or posting work immediately.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How are payments handled on EarnKart?
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            Payments can be handled in two ways: 1) Direct cash payment between worker and employer, or 2) Through EarnKart's secure payment system. We recommend discussing payment methods with the other party before starting work. Always get payment confirmation in the app.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there any fee for using EarnKart?
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            EarnKart is completely free for workers to find jobs. For employers posting jobs, there's a small 5% service fee on the total job value, which helps us maintain and improve the platform.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How do I report a safety concern?
+                            <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            If you encounter any safety concerns, please immediately contact our support team through the "Contact Support" page. You can also use the emergency button in the app to report urgent safety issues. We take all safety reports seriously and respond within 24 hours.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Options -->
+            <div class="contact-options">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Call Support</h3>
+                    <p>+91 1800-123-4567</p>
+                    <p>Available 9 AM - 9 PM, 7 days a week</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>support@earnkart.com</p>
+                    <p>Response within 24 hours</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Available in the app</p>
+                    <p>Mon-Fri: 10 AM - 6 PM</p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>EarnKart</div>
+                    </div>
+                    <p class="footer-description">
+                        Empowering local communities through accessible employment opportunities.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Help & Support</h3>
+                    <ul>
+                        <li><a href="/help/">Help Center</a></li>
+                        <li><a href="/safety/">Safety Guidelines</a></li>
+                        <li><a href="/contact/">Contact Support</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 EarnKart.Need help? Contact support@earnkart.com</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // FAQ Toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const answer = item.querySelector('.faq-answer');
+                
+                // Close other open FAQs
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ
+                item.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
+        
+        // Search functionality
+        document.getElementById('helpSearch').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                searchHelp(this.value);
+            }
+        });
+        
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.getElementById('helpSearch').value;
+            searchHelp(query);
+        });
+        
+        function searchHelp(query) {
+            if (query.trim()) {
+                alert(`Searching for: "${query}"\nIn a real implementation, this would search the help database.`);
+                // In real implementation, this would filter FAQ items or redirect to search results
+            }
+        }
+        
+        // Quick links smooth scroll
+        document.querySelectorAll('.quick-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Add mouse effects
+        document.addEventListener('mousemove', (e) => {
+            const follower = document.querySelector('.mouse-follower');
+            if (follower) {
+                follower.style.left = `${e.clientX - 15}px`;
+                follower.style.top = `${e.clientY - 15}px`;
+            }
+        });
+        
+        // Floating shapes animation
+        function animateFloatingShapes() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                shape.style.left = `${Math.random() * 80 + 5}%`;
+                shape.style.top = `${Math.random() * 80 + 5}%`;
+                const duration = 20 + Math.random() * 20;
+                shape.style.animationDuration = `${duration}s`;
+                if (Math.random() > 0.5) {
+                    shape.style.animationDirection = 'reverse';
+                }
+            });
+        }
+        
+        animateFloatingShapes();
+    </script>
+</body>
+</html>

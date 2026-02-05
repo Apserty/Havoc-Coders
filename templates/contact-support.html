@@ -1,0 +1,637 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Contact Support Specific Styles */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--accent), #2196F3);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), #2196F3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .contact-form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .issue-type-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .issue-option {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .issue-option:hover {
+            border-color: var(--accent);
+            background: rgba(33, 150, 243, 0.05);
+        }
+        
+        .issue-option.selected {
+            border-color: var(--accent);
+            background: rgba(33, 150, 243, 0.1);
+        }
+        
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #1976D2;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .faq-preview {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .response-time {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .social-support {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-link.whatsapp {
+            background: #25D366;
+        }
+        
+        .social-link.facebook {
+            background: #1877F2;
+        }
+        
+        .social-link.twitter {
+            background: #1DA1F2;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form-container {
+                padding: 2rem;
+            }
+            
+            .issue-type-select {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Header -->
+        <header>
+            <!-- EarnKart Logo -->
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div>EarnKart</div>
+            </a>
+            
+            <!-- Navigation Menu -->
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/jobs/" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+                <a href="/help/" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Help
+                </a>
+                <a href="/safety/" class="nav-link">
+                    <i class="fas fa-shield-alt"></i> Safety
+                </a>
+                <a href="/contact/" class="nav-link active">
+                    <i class="fas fa-headset"></i> Contact
+                </a>
+            </nav>
+            
+            <!-- User Actions -->
+            <div class="user-actions">
+                <div class="auth-buttons" id="authButtons">
+                    <a href="/login/" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/signup/" class="auth-btn signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-name" id="userName">Aswath</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="contact-hero">
+                <h1><i class="fas fa-headset"></i> Contact Support</h1>
+                <p>We're here to help! Choose the best way to get in touch with our support team</p>
+            </section>
+            
+            <!-- Contact Options -->
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Support</h3>
+                    <p><strong>+91 1800-123-4567</strong></p>
+                    <p>Available 24/7 for emergencies</p>
+                    <p>Regular support: 9 AM - 9 PM daily</p>
+                    <button class="btn btn-primary" onclick="callSupport()" style="margin-top: 1rem;">
+                        <i class="fas fa-phone"></i> Call Now
+                    </button>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p><strong>support@earnkart.com</strong></p>
+                    <p>For non-urgent inquiries</p>
+                    <p>Response within 24 hours</p>
+                    <button class="btn btn-primary" onclick="emailSupport()" style="margin-top: 1rem;">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </button>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Available in the EarnKart app</p>
+                    <p>Mon-Fri: 10 AM - 6 PM</p>
+                    <p>Quick responses</p>
+                    <button class="btn btn-primary" onclick="openLiveChat()" style="margin-top: 1rem;">
+                        <i class="fas fa-comment-dots"></i> Start Chat
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Response Time Info -->
+            <div class="response-time">
+                <i class="fas fa-clock" style="color: var(--accent); font-size: 1.5rem;"></i>
+                <div>
+                    <strong>Typical Response Times:</strong>
+                    <p>Phone & Live Chat: Immediate • Email: Within 24 hours • Social Media: Within 12 hours</p>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h2 class="section-title">
+                    <i class="fas fa-paper-plane"></i> Send us a Message
+                </h2>
+                
+                <form id="supportForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userType">I am a *</label>
+                            <select id="userType" class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="worker">Worker / Job Seeker</option>
+                                <option value="employer">Employer</option>
+                                <option value="both">Both</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What do you need help with? *</label>
+                        <div class="issue-type-select">
+                            <div class="issue-option" data-issue="account">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Account Issues</p>
+                            </div>
+                            <div class="issue-option" data-issue="payment">
+                                <i class="fas fa-rupee-sign"></i>
+                                <p>Payment Problems</p>
+                            </div>
+                            <div class="issue-option" data-issue="job">
+                                <i class="fas fa-briefcase"></i>
+                                <p>Job/Work Issues</p>
+                            </div>
+                            <div class="issue-option" data-issue="safety">
+                                <i class="fas fa-shield-alt"></i>
+                                <p>Safety Concern</p>
+                            </div>
+                            <div class="issue-option" data-issue="technical">
+                                <i class="fas fa-cogs"></i>
+                                <p>Technical Problem</p>
+                            </div>
+                            <div class="issue-option" data-issue="other">
+                                <i class="fas fa-question-circle"></i>
+                                <p>Other</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="issueType" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" class="form-control" required placeholder="Please describe your issue in detail..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attachments">Attachments (Optional)</label>
+                        <input type="file" id="attachments" class="form-control" multiple>
+                        <small>You can attach screenshots or documents (max 5 files, 10MB total)</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- FAQ Preview -->
+            <div class="faq-preview">
+                <h3><i class="fas fa-question-circle"></i> Quick Answers</h3>
+                <p>Before contacting support, check if your question is answered here:</p>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How long does it take to get a response?</div>
+                    <p>Email: Within 24 hours • Phone/Live Chat: Immediate during business hours</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What information should I provide?</div>
+                    <p>Include your username, job ID (if applicable), and detailed description of the issue.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I contact support for emergency situations?</div>
+                    <p>Yes, call our emergency line at +91 1800-123-4567 available 24/7.</p>
+                </div>
+                
+                <a href="/faq/" class="btn btn-secondary" style="margin-top: 1rem;">
+                    <i class="fas fa-search"></i> Browse Full FAQ
+                </a>
+            </div>
+            
+            <!-- Social Media Support -->
+            <div style="text-align: center; margin: 3rem 0;">
+                <h3>Connect with us on Social Media</h3>
+                <p>Get updates and quick responses through our social channels</p>
+                
+                <div class="social-support">
+                    <a href="#" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-link facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>EarnKart</div>
+                    </div>
+                    <p class="footer-description">
+                        We're here to help you succeed. Contact us anytime!
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contact Options</h3>
+                    <ul>
+                        <li><a href="tel:+9118001234567">Phone: +91 1800-123-4567</a></li>
+                        <li><a href="mailto:support@earnkart.com">Email: support@earnkart.com</a></li>
+                        <li><a href="#">Live Chat (in app)</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Business Hours</h3>
+                    <ul>
+                        <li>Phone Support: 9 AM - 9 PM</li>
+                        <li>Email Support: 24/7</li>
+                        <li>Live Chat: Mon-Fri, 10 AM - 6 PM</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 EarnKart Support Center. Need immediate help? Call +91 1800-123-4567</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Contact form functionality
+        document.querySelectorAll('.issue-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selection from all options
+                document.querySelectorAll('.issue-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select this option
+                this.classList.add('selected');
+                document.getElementById('issueType').value = this.dataset.issue;
+            });
+        });
+        
+        // Form submission
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const issueType = document.getElementById('issueType').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!issueType) {
+                alert('Please select what you need help with');
+                return;
+            }
+            
+            // Simulate form submission
+            alert(`Thank you, ${name}! Your support request has been submitted.\n\nWe've sent a confirmation to ${email}. Our team will respond within 24 hours.\n\nReference ID: EK-${Date.now().toString().slice(-8)}`);
+            
+            // Reset form
+            this.reset();
+            document.querySelectorAll('.issue-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+        });
+        
+        // Contact button functions
+        function callSupport() {
+            if (confirm('Call EarnKart support at +91 1800-123-4567?')) {
+                // In real implementation, this would initiate phone call
+                alert('Calling EarnKart Support...\n+91 1800-123-4567\n(Simulated call - in real app this would dial the number)');
+            }
+        }
+        
+        function emailSupport() {
+            const email = 'support@earnkart.com';
+            const subject = 'Support Request from EarnKart User';
+            const body = `Dear EarnKart Support,\n\nI need help with: [Please describe your issue here]\n\nUser Information:\n- Name: \n- Phone: \n- User Type: \n\nThank you,\n[Your Name]`;
+            
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+        
+        function openLiveChat() {
+            alert('Opening Live Chat...\n\nIn the full app, this would open a live chat interface with our support team.');
+        }
+        
+        // Add mouse effects
+        document.addEventListener('mousemove', (e) => {
+            const follower = document.querySelector('.mouse-follower');
+            if (follower) {
+                follower.style.left = `${e.clientX - 15}px`;
+                follower.style.top = `${e.clientY - 15}px`;
+            }
+        });
+        
+        // Floating shapes animation
+        function animateFloatingShapes() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                shape.style.left = `${Math.random() * 80 + 5}%`;
+                shape.style.top = `${Math.random() * 80 + 5}%`;
+                const duration = 20 + Math.random() * 20;
+                shape.style.animationDuration = `${duration}s`;
+                if (Math.random() > 0.5) {
+                    shape.style.animationDirection = 'reverse';
+                }
+            });
+        }
+        
+        animateFloatingShapes();
+        
+        // Form field focus effects
+        document.querySelectorAll('.form-control').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateX(5px)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

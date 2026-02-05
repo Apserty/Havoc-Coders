@@ -1,0 +1,1050 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* Page-specific reset — theme variables are provided by global `style.css` */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #f0f7ff 0%, #f5f0ff 50%, #f0fff5 100%);
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(156, 39, 176, 0.05);
+            animation: float 20s infinite linear;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-duration: 25s;
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-duration: 30s;
+            animation-direction: reverse;
+            background: rgba(33, 150, 243, 0.05);
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 15%;
+            animation-duration: 35s;
+            background: rgba(255, 152, 0, 0.03);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 100px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-30px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Header styling is provided by the shared `style.css` (uses pill-style nav and global theme). */
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Terms Hero */
+        .terms-hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .terms-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .terms-hero p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Last Updated */
+        .last-updated {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .last-updated i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+
+        /* Terms Container */
+        .terms-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .toc h3 {
+            color: var(--secondary-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .toc-item:hover {
+            background: rgba(156, 39, 176, 0.1);
+            transform: translateX(5px);
+        }
+
+        .toc-item i {
+            color: var(--secondary);
+        }
+
+        .toc-item a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .toc-item:hover a {
+            color: var(--secondary);
+        }
+
+        /* Terms Sections */
+        .terms-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .terms-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(156, 39, 176, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .section-header i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+
+        .section-header h2 {
+            color: var(--secondary-dark);
+            font-size: 1.5rem;
+        }
+
+        /* Terms Content */
+        .terms-content {
+            color: var(--gray);
+        }
+
+        .terms-content h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.2rem;
+        }
+
+        .terms-content p {
+            margin-bottom: 1rem;
+        }
+
+        .terms-content ul, .terms-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-content li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+
+        .highlight-box {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .important-box {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        /* Definitions List */
+        .definitions {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .definitions dt {
+            font-weight: 600;
+            color: var(--secondary-dark);
+            margin-top: 1rem;
+        }
+
+        .definitions dd {
+            margin-left: 1rem;
+            color: var(--gray);
+        }
+
+        /* Acceptance Section */
+        .acceptance-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(156, 39, 176, 0.1));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .acceptance-section h2 {
+            color: var(--secondary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .acceptance-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(156, 39, 176, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(156, 39, 176, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* Contact Legal */
+        .contact-legal {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .contact-legal h3 {
+            color: var(--secondary-dark);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem 5%;
+            margin-top: 5rem;
+            border-top: 3px solid var(--secondary);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--gray);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .terms-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .terms-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .terms-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .terms-hero p {
+                font-size: 1rem;
+            }
+            
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .acceptance-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .acceptance-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-container {
+                padding: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .terms-content h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-5px) scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    
+        
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Terms Hero -->
+        <section class="terms-hero">
+            <h1><i class="fas fa-file-contract"></i> Terms of Service</h1>
+            <p>Please read these terms carefully before using EarnKart services</p>
+        </section>
+
+        <!-- Last Updated -->
+        <div class="last-updated">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+                <strong>Last Updated:</strong> January 15, 2025
+                <br>
+                <small>These terms may be updated periodically. Please check back regularly.</small>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3><i class="fas fa-list"></i> Table of Contents</h3>
+            <div class="toc-list">
+                <div class="toc-item" onclick="scrollToSection('acceptance')">
+                    <i class="fas fa-check-circle"></i>
+                    <a href="#acceptance">1. Acceptance of Terms</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('definitions')">
+                    <i class="fas fa-book"></i>
+                    <a href="#definitions">2. Definitions</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('eligibility')">
+                    <i class="fas fa-user-check"></i>
+                    <a href="#eligibility">3. Eligibility</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('account')">
+                    <i class="fas fa-user-circle"></i>
+                    <a href="#account">4. Account Registration</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('services')">
+                    <i class="fas fa-handshake"></i>
+                    <a href="#services">5. Services Provided</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('user-responsibilities')">
+                    <i class="fas fa-balance-scale"></i>
+                    <a href="#user-responsibilities">6. User Responsibilities</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('payments')">
+                    <i class="fas fa-rupee-sign"></i>
+                    <a href="#payments">7. Payments & Fees</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('privacy')">
+                    <i class="fas fa-shield-alt"></i>
+                    <a href="#privacy">8. Privacy & Data Protection</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('termination')">
+                    <i class="fas fa-ban"></i>
+                    <a href="#termination">9. Termination</a>
+                </div>
+                <div class="toc-item" onclick="scrollToSection('liability')">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <a href="#liability">10. Liability & Disclaimer</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms Container -->
+        <div class="terms-container">
+            <!-- Section 1: Acceptance -->
+            <section class="terms-section" id="acceptance">
+                <div class="section-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>1. Acceptance of Terms</h2>
+                </div>
+                <div class="terms-content">
+                    <p>Welcome to EarnKart. By accessing or using our platform, website, mobile application, or services (collectively, the "Services"), you agree to be bound by these Terms of Service ("Terms").</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> These Terms constitute a legally binding agreement between you and EarnKart. If you do not agree with any part of these Terms, you must not use our Services.</p>
+                    </div>
+                    
+                    <p>We reserve the right to modify these Terms at any time. We will notify you of significant changes through email or in-app notifications. Continued use of our Services after changes constitutes acceptance of the updated Terms.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: Definitions -->
+            <section class="terms-section" id="definitions">
+                <div class="section-header">
+                    <i class="fas fa-book"></i>
+                    <h2>2. Definitions</h2>
+                </div>
+                <div class="terms-content">
+                    <div class="definitions">
+                        <dl>
+                            <dt>"Platform" or "EarnKart"</dt>
+                            <dd>Refers to the EarnKart website, mobile application, and all related services.</dd>
+                            
+                            <dt>"User"</dt>
+                            <dd>Any individual or entity that accesses or uses our Services.</dd>
+                            
+                            <dt>"Worker" or "Service Provider"</dt>
+                            <dd>A User who offers services or skills through our platform.</dd>
+                            
+                            <dt>"Employer" or "Client"</dt>
+                            <dd>A User who seeks to hire Workers through our platform.</dd>
+                            
+                            <dt>"Job" or "Gig"</dt>
+                            <dd>A specific task, project, or service posted by an Employer.</dd>
+                            
+                            <dt>"Content"</dt>
+                            <dd>Any information, text, images, reviews, or other materials uploaded to our platform.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="terms-section" id="eligibility">
+                <div class="section-header">
+                    <i class="fas fa-user-check"></i>
+                    <h2>3. Eligibility</h2>
+                </div>
+                <div class="terms-content">
+                    <p>To use EarnKart Services, you must:</p>
+                    <ul>
+                        <li>Be at least 18 years of age</li>
+                        <li>Have the legal capacity to enter into binding contracts</li>
+                        <li>Provide accurate and complete registration information</li>
+                        <li>Not be prohibited from receiving our Services under applicable laws</li>
+                        <li>Not have previously been suspended or removed from our platform</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <p><strong>Verification Required:</strong> We may require additional verification for certain services, including but not limited to identity verification, skill assessment, and background checks where applicable.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Account Registration -->
+            <section class="terms-section" id="account">
+                <div class="section-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>4. Account Registration</h2>
+                </div>
+                <div class="terms-content">
+                    <h3>4.1 Account Creation</h3>
+                    <p>To access certain features, you must create an account. You agree to:</p>
+                    <ul>
+                        <li>Provide accurate, current, and complete information</li>
+                        <li>Maintain and promptly update your account information</li>
+                        <li>Maintain the security of your account credentials</li>
+                        <li>Accept responsibility for all activities under your account</li>
+                        <li>Immediately notify us of any unauthorized use</li>
+                    </ul>
+                    
+                    <h3>4.2 Account Types</h3>
+                    <p>EarnKart offers different account types:</p>
+                    <ol>
+                        <li><strong>Worker Accounts:</strong> For individuals offering services</li>
+                        <li><strong>Employer Accounts:</strong> For individuals or businesses seeking services</li>
+                        <li><strong>Business Accounts:</strong> For registered companies and organizations</li>
+                    </ol>
+                    
+                    <div class="important-box">
+                        <p><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your login credentials. EarnKart will not be liable for any loss or damage arising from your failure to protect your account.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Services Provided -->
+            <section class="terms-section" id="services">
+                <div class="section-header">
+                    <i class="fas fa-handshake"></i>
+                    <h2>5. Services Provided</h2>
+                </div>
+                <div class="terms-content">
+                    <p>EarnKart provides a platform that connects Workers with Employers. Our Services include but are not limited to:</p>
+                    
+                    <h3>5.1 Platform Features</h3>
+                    <ul>
+                        <li>Job posting and browsing capabilities</li>
+                        <li>User profile creation and management</li>
+                        <li>Communication tools between Users</li>
+                        <li>Payment processing and escrow services</li>
+                        <li>Review and rating systems</li>
+                        <li>Dispute resolution assistance</li>
+                    </ul>
+                    
+                    <h3>5.2 Nature of Services</h3>
+                    <p>EarnKart is a platform, not an employer. We do not:</p>
+                    <ul>
+                        <li>Employ Workers or guarantee employment</li>
+                        <li>Control the quality, timing, or legality of services provided</li>
+                        <li>Verify the accuracy of User-provided information</li>
+                        <li>Endorse any User or service</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Platform Role:</strong> EarnKart acts as an intermediary platform only. The actual service contract is between the Worker and Employer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: User Responsibilities -->
+            <section class="terms-section" id="user-responsibilities">
+                <div class="section-header">
+                    <i class="fas fa-balance-scale"></i>
+                    <h2>6. User Responsibilities</h2>
+                </div>
+                <div class="terms-content">
+                    <h3>6.1 General Responsibilities</h3>
+                    <p>All Users agree to:</p>
+                    <ul>
+                        <li>Comply with all applicable laws and regulations</li>
+                        <li>Respect the rights and dignity of other Users</li>
+                        <li>Not engage in fraudulent, deceptive, or illegal activities</li>
+                        <li>Not post offensive, discriminatory, or inappropriate content</li>
+                        <li>Not interfere with the proper functioning of the platform</li>
+                    </ul>
+                    
+                    <h3>6.2 Worker Responsibilities</h3>
+                    <p>Workers agree to:</p>
+                    <ul>
+                        <li>Provide services with reasonable skill and care</li>
+                        <li>Complete agreed-upon work within specified timelines</li>
+                        <li>Maintain professional conduct at all times</li>
+                        <li>Not misrepresent skills, qualifications, or experience</li>
+                        <li>Pay applicable platform fees</li>
+                    </ul>
+                    
+                    <h3>6.3 Employer Responsibilities</h3>
+                    <p>Employers agree to:</p>
+                    <ul>
+                        <li>Provide clear and accurate job descriptions</li>
+                        <li>Pay agreed amounts upon satisfactory completion</li>
+                        <li>Not solicit Workers for off-platform work</li>
+                        <li>Provide fair and honest reviews</li>
+                        <li>Respect Worker's time and expertise</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 7: Payments & Fees -->
+            <section class="terms-section" id="payments">
+                <div class="section-header">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h2>7. Payments & Fees</h2>
+                </div>
+                <div class="terms-content">
+                    <h3>7.1 Service Fees</h3>
+                    <p>EarnKart charges the following fees:</p>
+                    <ul>
+                        <li><strong>Platform Fee:</strong> 10-15% of transaction value (varies by service type)</li>
+                        <li><strong>Payment Processing Fee:</strong> 2.5% + applicable taxes</li>
+                        <li><strong>Withdrawal Fee:</strong> ₹20 per withdrawal to bank account</li>
+                        <li><strong>Premium Features:</strong> Additional charges for enhanced visibility and features</li>
+                    </ul>
+                    
+                    <div class="important-box">
+                        <p><strong>Fee Structure:</strong> All fees are clearly displayed before you confirm any transaction. By using our payment services, you agree to our fee structure.</p>
+                    </div>
+                    
+                    <h3>7.2 Payment Processing</h3>
+                    <p>We use secure third-party payment processors. Payments are held in escrow until:</p>
+                    <ol>
+                        <li>Work is completed to Employer's satisfaction</li>
+                        <li>The review period has ended</li>
+                        <li>No disputes are filed</li>
+                    </ol>
+                    
+                    <h3>7.3 Tax Responsibility</h3>
+                    <p>Users are responsible for:</p>
+                    <ul>
+                        <li>Determining applicable taxes</li>
+                        <li>Collecting and remitting taxes to appropriate authorities</li>
+                        <li>Maintaining proper tax records</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 8: Privacy & Data -->
+            <section class="terms-section" id="privacy">
+                <div class="section-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>8. Privacy & Data Protection</h2>
+                </div>
+                <div class="terms-content">
+                    <p>Your privacy is important to us. Please review our <a href="/terms/" style="color: var(--secondary); text-decoration: none;">Privacy Policy</a> for detailed information.</p>
+                    
+                    <h3>8.1 Data Collection</h3>
+                    <p>We collect information necessary for:</p>
+                    <ul>
+                        <li>Account creation and verification</li>
+                        <li>Service delivery and improvement</li>
+                        <li>Payment processing</li>
+                        <li>Safety and security measures</li>
+                        <li>Legal compliance</li>
+                    </ul>
+                    
+                    <h3>8.2 Data Sharing</h3>
+                    <p>We may share your information with:</p>
+                    <ul>
+                        <li>Other Users (as necessary for service delivery)</li>
+                        <li>Payment processors and financial institutions</li>
+                        <li>Legal authorities when required by law</li>
+                        <li>Service providers who assist our operations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 9: Termination -->
+            <section class="terms-section" id="termination">
+                <div class="section-header">
+                    <i class="fas fa-ban"></i>
+                    <h2>9. Termination</h2>
+                </div>
+                <div class="terms-content">
+                    <h3>9.1 User Termination</h3>
+                    <p>You may terminate your account at any time by:</p>
+                    <ol>
+                        <li>Going to Account Settings</li>
+                        <li>Selecting "Delete Account"</li>
+                        <li>Confirming your decision</li>
+                    </ol>
+                    
+                    <h3>9.2 Platform Termination</h3>
+                    <p>EarnKart may suspend or terminate your account if:</p>
+                    <ul>
+                        <li>You violate these Terms</li>
+                        <li>We suspect fraudulent activity</li>
+                        <li>Required by law or legal process</li>
+                        <li>You create risk or possible legal exposure</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <p><strong>Post-Termination:</strong> Upon termination, you lose access to your account and any associated data. We may retain certain information as required by law or for legitimate business purposes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Liability -->
+            <section class="terms-section" id="liability">
+                <div class="section-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>10. Liability & Disclaimer</h2>
+                </div>
+                <div class="terms-content">
+                    <h3>10.1 Disclaimer of Warranties</h3>
+                    <p>Our Services are provided "as is" and "as available" without warranties of any kind. We do not guarantee:</p>
+                    <ul>
+                        <li>Uninterrupted or error-free service</li>
+                        <li>The accuracy of User-provided information</li>
+                        <li>The quality or outcome of services provided by Users</li>
+                        <li>Continuous availability of any specific feature</li>
+                    </ul>
+                    
+                    <h3>10.2 Limitation of Liability</h3>
+                    <p>To the maximum extent permitted by law, EarnKart shall not be liable for:</p>
+                    <ul>
+                        <li>Indirect, incidental, or consequential damages</li>
+                        <li>Loss of profits, data, or business opportunities</li>
+                        <li>User disputes or service outcomes</li>
+                        <li>Third-party actions or content</li>
+                    </ul>
+                    
+                    <h3>10.3 Indemnification</h3>
+                    <p>You agree to indemnify and hold harmless EarnKart from any claims arising from:</p>
+                    <ul>
+                        <li>Your use of our Services</li>
+                        <li>Your violation of these Terms</li>
+                        <li>Your interaction with other Users</li>
+                        <li>Your content or conduct</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        
+
+        <!-- Contact Legal -->
+        <div class="contact-legal">
+            <h3><i class="fas fa-gavel"></i> Legal Contact</h3>
+            <p>For legal inquiries or service of process:</p>
+            <p><strong>Email:</strong> legal@earnkart.com</p>
+            <p><strong>Address:</strong> EarnKart Legal Department, Chennai, India</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <div style="background: var(--secondary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div>EarnKart</div>
+                </div>
+                <p class="footer-description">
+                    Empowering local communities through accessible employment opportunities.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/terms/"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Support</h3>
+                <ul>
+                    
+                    <li><a href="/help/"><i class="fas fa-life-ring"></i> Help Center</a></li>
+                    <li><a href="/contact/"><i class="fas fa-headset"></i> Contact Support</a></li>
+                    <li><a href="/safety/"><i class="fas fa-shield-alt"></i> Safety Center</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2026 EarnKart. Connecting workers with opportunities.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll to Section Function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const offset = 100; // Offset for sticky header
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Scroll to Top Function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/Hide Scroll to Top Button
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+    
+
+        // Initialize floating shapes animation
+        function animateFloatingShapes() {
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                // Randomize initial positions
+                shape.style.left = `${Math.random() * 80 + 5}%`;
+                shape.style.top = `${Math.random() * 80 + 5}%`;
+                
+                // Randomize animation duration
+                const duration = 20 + Math.random() * 20;
+                shape.style.animationDuration = `${duration}s`;
+                
+                // Randomize animation direction
+                if (Math.random() > 0.5) {
+                    shape.style.animationDirection = 'reverse';
+                }
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            animateFloatingShapes();
+            
+            // Check if terms were previously accepted
+            const termsAccepted = localStorage.getItem('earnkart_terms_accepted');
+            if (termsAccepted === 'true') {
+                console.log('Terms already accepted');
+            }
+        });
+    </script>
+</body>
+</html>

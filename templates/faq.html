@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - EarnKart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* FAQ Specific Styles */
+        .faq-hero {
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .faq-search {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            padding-right: 60px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-search button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #9C27B0;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .faq-search button:hover {
+            background: #7B1FA2;
+            transform: scale(1.05);
+        }
+        
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .category-tag {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid #9C27B0;
+            border-radius: 50px;
+            color: #9C27B0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-tag:hover,
+        .category-tag.active {
+            background: #9C27B0;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-list {
+            margin-top: 2rem;
+        }
+        
+        .faq-item {
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            border-color: #9C27B0;
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.1);
+        }
+        
+        .faq-item.active {
+            border-color: #9C27B0;
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.15);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+            background: #fafafa;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        .faq-answer.active {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+        
+        .faq-toggle {
+            color: #9C27B0;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .popular-faqs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .popular-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid #9C27B0;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .popular-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .popular-card h4 {
+            color: #9C27B0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-promo {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .still-have-questions {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .helpful-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+        
+        .helpful-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .helpful-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .helpful-btn.helpful {
+            color: #4CAF50;
+        }
+        
+        .helpful-btn.not-helpful {
+            color: #f44336;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .faq-section {
+                padding: 2rem;
+            }
+            
+            .popular-faqs {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .helpful-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower"></div>
+    
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Header -->
+        <header>
+            <!-- EarnKart Logo -->
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div>EarnKart</div>
+            </a>
+            
+            <!-- Navigation Menu -->
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/jobs/" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+                <a href="/help/" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Help
+                </a>
+                <a href="/contact/" class="nav-link">
+                    <i class="fas fa-headset"></i> Contact
+                </a>
+                <a href="/faq/" class="nav-link active">
+                    <i class="fas fa-question-circle"></i> FAQ
+                </a>
+            </nav>
+            
+            <!-- User Actions -->
+            <div class="user-actions">
+                <div class="auth-buttons" id="authButtons">
+                    <a href="/login/" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/signup/" class="auth-btn signup-btn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-name" id="userName">Aswath</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="faq-hero">
+                <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+                <p>Find quick answers to common questions about using EarnKart</p>
+                
+                <div class="faq-search">
+                    <input type="text" placeholder="Search for questions..." id="faqSearch">
+                    <button onclick="searchFAQ()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Categories -->
+            <div class="faq-categories">
+                <div class="category-tag active" data-category="all">All Questions</div>
+                <div class="category-tag" data-category="account">Account</div>
+                <div class="category-tag" data-category="
