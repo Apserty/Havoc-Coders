@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnKart - Find & Post Local Jobs</title>
+    <title>Inbox - EarnKart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 </head>
 <body>
     <!-- Animated Background -->
@@ -16,244 +15,267 @@
         <div class="floating-shape"></div>
         <div class="floating-shape"></div>
     </div>
-    
-    <!-- Jumping Textures -->
-    <div class="texture-overlay"></div>
-    
+
     <!-- Mouse Follower -->
     <div class="mouse-follower"></div>
-    
-    <!-- Header -->
-    <header>
-        <!-- EarnKart Logo -->
-        <a href="/" class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-shopping-cart"></i>
-            </div>
-            <div>EarnKart</div>
-        </a>
-        
-        <!-- Page Navigation Buttons -->
-        <div class="page-nav">
-            <a href="/" class="nav-btn active" data-page="home">
-                <i class="fas fa-home"></i> Home
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Header -->
+        <header>
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div>EarnKart</div>
             </a>
-            <a href="/jobs/" class="nav-btn" data-page="jobs">
-                <i class="fas fa-briefcase"></i> Jobs
-            </a>
-            <a href="/inbox/" class="nav-btn" data-page="Inbox">
-                <i class="fas fa-inbox"></i> Inbox
-            </a>
-            <a href="/post-job/" class="nav-btn" data-page="post">
-                <i class="fas fa-plus-circle"></i> Post Job
-            </a>
-            <a href="/about/" class="nav-btn" data-page="about">
-                <i class="fas fa-info-circle"></i> About Us
-            </a>
-        </div>
-        
-        <!-- User Actions - Login/Signup -->
-        <div class="user-actions">
-            <div class="auth-buttons" id="authButtons">
-                <a href="/login/" class="auth-btn login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
+
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
                 </a>
-                <a href="/signup/" class="auth-btn signup-btn">
-                    <i class="fas fa-user-plus"></i> Sign Up
+                <a href="/jobs/" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
                 </a>
-            </div>
-            
-            <a href="/profile/" class="user-profile" id="userProfile" style="display: none;">
-                <div class="user-avatar" id="userAvatar">A</div>
-                <div class="user-name" id="userName">Aswath</div>
-                <i class="fas fa-chevron-down"></i>
-            </a>
-        </div>
-    </header>
-    
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Earn with EarnKart</h1>
-            <p>Connect with local job opportunities or find reliable workers in minutes. From farming to household help, EarnKart makes earning and hiring simple.</p>
-            <div class="quote">
-                <h2><i>"Your skills, their needs — a perfect match!"</i></h2>
-            </div>
-            <div style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center;">
-                <a href="/jobs/" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">
-                    <i class="fas fa-search"></i> Explore Jobs
+                <a href="/inbox/" class="nav-link active">
+                    <i class="fas fa-inbox"></i> Inbox
                 </a>
-                <a href="/post-job/" class="btn btn-secondary" style="font-size: 1.2rem; padding: 1rem 2.5rem;">
-                    <i class="fas fa-plus"></i> Post a Job
+                <a href="/post-job/" class="nav-link">
+                    <i class="fas fa-plus-circle"></i> Post Job
                 </a>
+                <a href="/about/" class="nav-link">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+            </nav>
+
+            <div class="user-actions">
+                {% if user.is_authenticated %}
+                    <a href="/profile/" class="user-profile" id="userProfile" aria-label="Open profile">
+                        <div class="user-avatar" id="userAvatar">{{ user.first_name|default:user.username|slice:":1"|upper }}</div>
+                        <div class="user-name" id="userName">{{ user.first_name|default:user.username }}</div>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                {% else %}
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="/login/" class="auth-btn login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="/signup/" class="auth-btn signup-btn">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </a>
+                    </div>
+                {% endif %}
             </div>
-        </section>
-        
-        <!-- Featured Jobs Preview -->
-        <div style="margin-top: 4rem;">
-            <h2 class="section-title">
-                <i class="fas fa-fire"></i> Featured Gigs
-            </h2>
-            
-            <div class="jobs-grid">
-                <!-- Featured Job 1 -->
-                <div class="job-card">
-                    <h3 class="job-title">Harvesting Helper</h3>
-                    <div class="job-employer">
-                        <span>Farm Fresh Co.</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>(23 reviews)</span>
+        </header>
+
+        <!-- Main Content -->
+        <main class="inbox-main-content">
+
+            <!-- Inbox Container -->
+            <div class="inbox-container">
+                <div class="inbox-header">
+                    <h1><i class="fas fa-inbox"></i> Your Inbox</h1>
+                    <p>Manage your job applications and hiring process</p>
+                </div>
+
+                <!-- Content Container -->
+                <div class="content-container">
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <div class="sidebar-tabs">
+                            <button class="sidebar-tab active" data-tab="applications">
+                                <i class="fas fa-paper-plane"></i> My Applications
+                                <span class="tab-badge" id="applications-count">{{ my_apps|length }}</span>
+                            </button>
+
+                            <button class="sidebar-tab" data-tab="accepted">
+                                <i class="fas fa-check-circle"></i> Accepted Jobs
+                                <span class="tab-badge" id="accepted-count">0</span>
+                            </button>
+
+                            <button class="sidebar-tab" data-tab="employer-view">
+                                <i class="fas fa-users"></i> My Applicants
+                                <span class="tab-badge" id="applicants-count">{{ my_applicants|length }}</span>
+                            </button>
+
+                            <button class="sidebar-tab" data-tab="employers">
+                                <i class="fas fa-building"></i> Employer Profiles
+                                <span class="tab-badge" id="profiles-count">0</span>
+                            </button>
                         </div>
                     </div>
-                    
-                    <p class="job-description">Work includes harvesting crops, carrying produce and basic farm maintenance. No heavy machinery; mostly manual work. Morning shift 7:00–12:00.</p>
-                    
-                    <div class="job-details">
-                        <div class="detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Near Green Village, District X</span>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <!-- My Applications Tab -->
+                        <div class="tab-content active" id="applications-tab">
+                            <h2><i class="fas fa-paper-plane"></i> My Job Applications</h2>
+                            <p class="description">Track the jobs you applied to</p>
+
+                            <div class="messages-list" id="applications-list">
+                                {% if my_apps %}
+                                    {% for app in my_apps %}
+                                        <div class="job-card" style="margin-bottom: 1rem;">
+                                            <h3 class="job-title">{{ app.gig.title }}</h3>
+
+                                            <div class="job-details">
+                                                <div class="detail">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    <span>{{ app.gig.location }}</span>
+                                                </div>
+                                                <div class="detail">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                    <span>{{ app.created_at|date:"d M Y, h:i A" }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="pay">{{ app.gig.pay }}</div>
+
+                                            <div style="margin-top: .75rem; color: var(--gray); font-size: .95rem;">
+                                                Status: <strong>Applied</strong>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div style="background: white; padding: 1.5rem; border-radius: 16px; text-align: center; box-shadow: var(--shadow);">
+                                        <h3 style="margin-bottom: .5rem;">No applications yet</h3>
+                                        <p style="color: var(--gray); margin-bottom: 1rem;">Browse jobs and apply to see them here.</p>
+                                        <a href="/jobs/" class="btn btn-primary">
+                                            <i class="fas fa-search"></i> Browse Jobs
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="detail">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>5 days</span>
+
+                        <!-- Accepted Jobs Tab (placeholder for now) -->
+                        <div class="tab-content" id="accepted-tab">
+                            <h2><i class="fas fa-check-circle"></i> Accepted Job Offers</h2>
+                            <p class="description">Coming soon: acceptance workflow</p>
+
+                            <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow);">
+                                We’ll enable this once we add <strong>application status</strong> (pending/accepted/rejected).
+                            </div>
                         </div>
+
+                        <!-- Employer View Tab -->
+                        <div class="tab-content" id="employer-view-tab">
+                            <h2><i class="fas fa-users"></i> Applications Received</h2>
+                            <p class="description">Applications for your posted jobs</p>
+
+                            <div class="messages-list" id="applicants-list">
+                                {% if my_applicants %}
+                                    {% for app in my_applicants %}
+                                        <div class="job-card" style="margin-bottom: 1rem;">
+                                            <h3 class="job-title">{{ app.gig.title }}</h3>
+
+                                            <div class="job-details">
+                                                <div class="detail">
+                                                    <i class="fas fa-user"></i>
+                                                    <span>{{ app.worker.first_name|default:app.worker.username }}</span>
+                                                </div>
+                                                <div class="detail">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                    <span>{{ app.created_at|date:"d M Y, h:i A" }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div style="margin-top: .75rem; color: var(--gray); font-size: .95rem;">
+                                                Status: <strong>Received</strong>
+                                            </div>
+
+                                            <!-- Future actions (accept/reject) -->
+                                            <div style="display:flex; gap:.75rem; margin-top:1rem;">
+                                                <button class="btn" type="button" style="background:#eee; color: var(--dark); flex:1;">
+                                                    <i class="fas fa-check"></i> Accept (soon)
+                                                </button>
+                                                <button class="btn" type="button" style="background:#eee; color: var(--dark); flex:1;">
+                                                    <i class="fas fa-times"></i> Reject (soon)
+                                                </button>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div style="background: white; padding: 1.5rem; border-radius: 16px; text-align: center; box-shadow: var(--shadow);">
+                                        <h3 style="margin-bottom: .5rem;">No applicants yet</h3>
+                                        <p style="color: var(--gray); margin-bottom: 1rem;">When people apply to your posted gigs, they’ll appear here.</p>
+                                        <a href="/post-job/" class="btn btn-primary">
+                                            <i class="fas fa-plus-circle"></i> Post a Job
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Employer Profiles Tab (placeholder) -->
+                        <div class="tab-content" id="employers-tab">
+                            <h2><i class="fas fa-building"></i> Employer Profiles</h2>
+                            <p class="description">Coming soon</p>
+
+                            <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow);">
+                                We’ll add employer profiles once we introduce a <strong>Profile</strong> model (phone/city/skills).
+                            </div>
+                        </div>
+
                     </div>
-                    
-                    <div class="pay">₹200 / day</div>
-                    
-                    <button class="btn btn-primary apply-btn">
-                        <i class="fas fa-paper-plane"></i> Apply Now
+                </div>
+            </div>
+
+            <!-- Employer Profile Modal (kept for later JS enhancements) -->
+            <div class="profile-modal" id="profileModal">
+                <div class="profile-modal-content">
+                    <button class="close-modal" id="closeProfileModal" type="button" aria-label="Close profile dialog" title="Close">
+                        <i class="fas fa-times" aria-hidden="true"></i>
                     </button>
-                </div>
-                
-                <!-- Featured Job 2 -->
-                <div class="job-card">
-                    <h3 class="job-title">Harvesting Vegetables</h3>
-                    <div class="job-employer">
-                        <span>Local Farm</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span>(12 reviews)</span>
-                        </div>
+
+                    <div class="employer-profile-details" id="employerProfileDetails">
+                        <!-- will be wired later -->
                     </div>
-                    
-                    <p class="job-description">Should be good with using a sickle. We will start at early 9, have lunch at 1 (provided), then rest and start at 4 again.</p>
-                    
-                    <div class="job-details">
-                        <div class="detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Coimbatore</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>Flexible duration</span>
-                        </div>
-                    </div>
-                    
-                    <div class="pay">₹560</div>
-                    
-                    <button class="btn btn-primary apply-btn">
-                        <i class="fas fa-paper-plane"></i> Apply Now
-                    </button>
-                </div>
-                
-                <!-- Featured Job 3 -->
-                <div class="job-card">
-                    <div style="position: absolute; top: 15px; right: 15px; background: var(--secondary); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
-                        <i class="fas fa-bolt"></i> URGENT
-                    </div>
-                    <h3 class="job-title">Full Stack Developer</h3>
-                    <div class="job-employer">
-                        <span>College Project</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>(8 reviews)</span>
-                        </div>
-                    </div>
-                    
-                    <p class="job-description">I have got my college project to be done by 31st Jan. Need help with full stack development.</p>
-                    
-                    <div class="job-details">
-                        <div class="detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Chennai</span>
-                        </div>
-                        <div class="detail">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>Until Jan 31</span>
-                        </div>
-                    </div>
-                    
-                    <div class="pay">₹200</div>
-                    
-                    <button class="btn btn-primary apply-btn">
-                        <i class="fas fa-paper-plane"></i> Apply Now
-                    </button>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="/jobs/" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">
-                    <i class="fas fa-eye"></i> View All Jobs
-                </a>
-            </div>
-        </div>
-    </main>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-about">
-                <div class="footer-logo">
-                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-shopping-cart"></i>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>EarnKart</div>
                     </div>
-                    <div>EarnKart</div>
+                    <p class="footer-description">
+                        Empowering local communities through accessible employment opportunities. Find work or hire help with just a few clicks.
+                    </p>
                 </div>
-                <p class="footer-description">
-                    Empowering local communities through accessible employment opportunities. Find work or hire help with just a few clicks.
-                </p>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/jobs/">Browse Jobs</a></li>
+                        <li><a href="/post-job/">Post a Job</a></li>
+                        <li><a href="/inbox/">Inbox</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/help/">Help Center</a></li>
+                        <li><a href="/safety/">Safety Guidelines</a></li>
+                        <li><a href="/contact/">Contact Support</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                    </ul>
+                </div>
             </div>
-            
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/jobs/">Browse Jobs</a></li>
-                    <li><a href="/post-job/">Post a Job</a></li>
-                    <li><a href="/about/">About Us</a></li>
-                </ul>
+
+            <div class="copyright">
+                <p>© 2025 EarnKart. Connecting workers with opportunities.</p>
             </div>
-            
-            <div class="footer-links">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="/help/">Help Center</a></li>
-                    <li><a href="/safety/">Safety Guidelines</a></li>
-                    <li><a href="/contact/">Contact Support</a></li>
-                    <li><a href="/faq/">FAQ</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>© <span id="currentYear">2025</span> EarnKart. All rights reserved. Connecting workers with opportunities.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="{% static 'js/main.js' %}"></script>
 </body>

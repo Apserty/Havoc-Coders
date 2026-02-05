@@ -30,13 +30,22 @@ class Gig(models.Model):
 
 
 class Application(models.Model):
+    STATUS_CHOICES = [
+        ("PENDING", "Pending"),
+        ("ACCEPTED", "Accepted"),
+        ("REJECTED", "Rejected"),
+    ]
+
     gig = models.ForeignKey(Gig, on_delete=models.CASCADE, related_name="applications")
     worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="applications")
     message = models.TextField(blank=True)
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ("gig", "worker")
 
     def __str__(self):
-        return f"{self.worker.username} -> {self.gig.title}"
+        return f"{self.worker.username} -> {self.gig.title} [{self.status}]"
