@@ -138,9 +138,58 @@ def profile(request):
 
 @login_required
 def inbox(request):
-    my_apps = Application.objects.filter(worker=request.user).select_related("gig").order_by("-created_at")
-    my_applicants = Application.objects.filter(gig__owner=request.user).select_related("gig", "worker").order_by("-created_at")
-    return render(request, "inbox.html", {"my_apps": my_apps, "my_applicants": my_applicants})
+    # Worker side
+    my_pending = Application.objects.filter(worker=request.user, status="PENDING").select_related("gig").order_by("-created_at")
+    my_accepted = Application.objects.filter(worker=request.user, status="ACCEPTED").select_related("gig").order_by("-created_at")
+    my_rejected = Application.objects.filter(worker=request.user, status="REJECTED").select_related("gig").order_by("-created_at")
+
+    # Employer side
+    applicants_pending = Application.objects.filter(gig__owner=request.user, status="PENDING").select_related("gig", "worker").order_by("-created_at")
+    applicants_accepted = Application.objects.filter(gig__owner=request.user, status="ACCEPTED").select_related("gig", "worker").order_by("-created_at")
+    applicants_rejected = Application.objects.filter(gig__owner=request.user, status="REJECTED").select_related("gig", "worker").order_by("-created_at")
+
+    return render(
+        request,
+        "inbox.html",
+        {
+            "my_pending": my_pending,
+            "my_accepted": my_accepted,
+            "my_rejected": my_rejected,
+            "applicants_pending": applicants_pending,
+            "applicants_accepted": applicants_accepted,
+            "applicants_rejected": applicants_rejected,
+        },
+    )
+
+@login_required
+@require_POST
+def accept_application(request, app_id):
+    app = get_object_or_404(Application, id=app_id)
+
+    # Only the job owner can accept/reject
+    if app.gig.owner_id != request.user.id:
+        messages.error(request, "Not allowed.")
+        return redirect("inbox")
+
+    app.status = "ACCEPTED"
+    app.save(update_fields=["status"])
+    messages.success(request, "Application accepted.")
+    return redirect("inbox")
+
+
+@login_required
+@require_POST
+def reject_application(request, app_id):
+    app = get_object_or_404(Application, id=app_id)
+
+    if app.gig.owner_id != request.user.id:
+        messages.error(request, "Not allowed.")
+        return redirect("inbox")
+
+    app.status = "REJECTED"
+    app.save(update_fields=["status"])
+    messages.success(request, "Application rejected.")
+    return redirect("inbox")
 
 
 def about(request):
