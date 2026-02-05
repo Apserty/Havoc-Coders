@@ -13,11 +13,19 @@ from django.views.decorators.http import require_POST
 def apply_to_gig(request, gig_id):
     gig = get_object_or_404(Gig, id=gig_id)
 
-    # Prevent duplicate apply
-    Application.objects.get_or_create(gig=gig, worker=request.user)
+    obj, created = Application.objects.get_or_create(
+        gig=gig,
+        worker=request.user,
+        defaults={"status": "PENDING"},
+    )
 
-    messages.success(request, "Applied successfully!")
+    if not created:
+        messages.info(request, f"You already applied. Current status: {obj.status}.")
+    else:
+        messages.success(request, "Applied successfully!")
+
     return redirect("inbox")
+
 
 def home(request):
     # show latest gigs on home (optional)
